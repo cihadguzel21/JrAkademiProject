@@ -58,10 +58,13 @@
 		8BAF98372A24CF24005D7F46 /* JrAkademiProject */ = {
 			isa = PBXGroup;
 			children = (
+				8BAF98512A2501CB005D7F46 /* Scenes */,
+				8BAF98542A250294005D7F46 /* Network */,
+				8BAF98522A2501F8005D7F46 /* UIComponents */,
 				8BAF98502A24F286005D7F46 /* Supporting Files */,
+				8BAF98582A250416005D7F46 /* Resources */,
 				8BAF983C2A24CF24005D7F46 /* ViewController.swift */,
 				8BAF983E2A24CF24005D7F46 /* Main.storyboard */,
-				8BAF98442A24CF26005D7F46 /* Assets.xcassets */,
 				8BAF98462A24CF27005D7F46 /* LaunchScreen.storyboard */,
 				8BAF98492A24CF27005D7F46 /* Info.plist */,
 				8BAF98412A24CF24005D7F46 /* JrAkademiProject.xcdatamodeld */,
@@ -76,6 +79,67 @@
 				8BAF983A2A24CF24005D7F46 /* SceneDelegate.swift */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8BAF98512A2501CB005D7F46 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		8BAF98522A2501F8005D7F46 /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				8BAF98532A250222005D7F46 /* TableViewCells */,
+			);
+			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		8BAF98532A250222005D7F46 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		8BAF98542A250294005D7F46 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				8BAF98552A250355005D7F46 /* Models */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		8BAF98552A250355005D7F46 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8BAF98572A2503A1005D7F46 /* Requests */,
+				8BAF98562A250399005D7F46 /* Response */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8BAF98562A250399005D7F46 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		8BAF98572A2503A1005D7F46 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		8BAF98582A250416005D7F46 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8BAF98442A24CF26005D7F46 /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
