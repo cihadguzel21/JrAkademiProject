@@ -58,8 +58,7 @@
 		8BAF98372A24CF24005D7F46 /* JrAkademiProject */ = {
 			isa = PBXGroup;
 			children = (
-				8BAF98382A24CF24005D7F46 /* AppDelegate.swift */,
-				8BAF983A2A24CF24005D7F46 /* SceneDelegate.swift */,
+				8BAF98502A24F286005D7F46 /* Supporting Files */,
 				8BAF983C2A24CF24005D7F46 /* ViewController.swift */,
 				8BAF983E2A24CF24005D7F46 /* Main.storyboard */,
 				8BAF98442A24CF26005D7F46 /* Assets.xcassets */,
@@ -68,6 +67,15 @@
 				8BAF98412A24CF24005D7F46 /* JrAkademiProject.xcdatamodeld */,
 			);
 			path = JrAkademiProject;
+			sourceTree = "<group>";
+		};
+		8BAF98502A24F286005D7F46 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8BAF98382A24CF24005D7F46 /* AppDelegate.swift */,
+				8BAF983A2A24CF24005D7F46 /* SceneDelegate.swift */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -80,6 +88,7 @@
 				8BAF98312A24CF24005D7F46 /* Sources */,
 				8BAF98322A24CF24005D7F46 /* Frameworks */,
 				8BAF98332A24CF24005D7F46 /* Resources */,
+				8BAF984F2A24DF36005D7F46 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -135,6 +144,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8BAF984F2A24DF36005D7F46 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/newOutputFile",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8BAF98312A24CF24005D7F46 /* Sources */ = {
