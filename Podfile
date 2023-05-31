@@ -7,6 +7,7 @@ target 'JrAkademiProject' do
 
 pod 'Carbon'
 pod 'SnapKit', '~> 5.6.0'
+pod 'Alamofire'
 
   # Pods for JrAkademiProject
 
