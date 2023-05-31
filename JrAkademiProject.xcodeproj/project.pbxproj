@@ -130,24 +130,8 @@
 		8BAF98552A250355005D7F46 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8BAF98572A2503A1005D7F46 /* Requests */,
-				8BAF98562A250399005D7F46 /* Response */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		8BAF98562A250399005D7F46 /* Response */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Response;
-			sourceTree = "<group>";
-		};
-		8BAF98572A2503A1005D7F46 /* Requests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Requests;
 			sourceTree = "<group>";
 		};
 		8BAF98582A250416005D7F46 /* Resources */ = {
