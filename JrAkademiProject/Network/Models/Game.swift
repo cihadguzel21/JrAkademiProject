@@ -2,7 +2,10 @@
 //  Game.swift
 //  JrAkademiProject
 //
-//  Created by cihad güzel on 1.06.2023.
+//  Created by cihad güzel on 31.05.2023.
 //
-
-import Foundation
+struct Game {
+    let name: String
+    let background_image: String
+    let metacritic: Int
+}
