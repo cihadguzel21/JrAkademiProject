@@ -4,87 +4,64 @@
 //
 //  Created by cihad güzel on 31.05.2023.
 //
-import Carbon
-import Alamofire
 import UIKit
 import SnapKit
+import Carbon
 
 class GamesViewController: UIViewController {
 
     private let viewModel = GameListViewModel()
     private let tableView = UITableView()
-    private let searchBar = UISearchBar()
+
+    var isToggled = false {
+        didSet { render() }}
+
+    private let renderer = Renderer(
+        adapter: UITableViewAdapter(),
+        updater: UITableViewUpdater())
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Games"
+        self.title = "Games" //Set Tab Title
+        view.backgroundColor = .white
+        renderer.target = tableView
 
         setupTableView()
-        setupConstraints()
-       // setupSearchBar()
-
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(GameCell.self, forCellReuseIdentifier: "GameCell")
-        viewModel.getGames { [weak self] in
-            self?.tableView.reloadData()
-        }
-    }
-
-    private func setupSearchBar() {
-        // Search Bar oluşturma
-        searchBar.searchBarStyle = .minimal
-        searchBar.placeholder = "Search"
-        searchBar.delegate = self
-        searchBar.showsCancelButton = false
-
-        // Search Bar'ı Navigation Bar'a ekleme
-        navigationItem.titleView = searchBar
+        render()
     }
 
     private func setupTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tableView)
-        tableView.rowHeight = 100
-        tableView.estimatedRowHeight = 100
-    }
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 120
+        tableView.separatorStyle = .none
 
-    private func setupConstraints() {
-        tableView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(16)
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().inset(16)
-            make.bottom.equalToSuperview().inset(100)
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+     }
+
+
+    func render() {
+        var sections: [Section] = []
+        var cellNode: [CellNode] = []
+
+        viewModel.fetchGames { [weak self] in
+
+            self?.viewModel.games.forEach { Game in
+                cellNode.append(CellNode(id: "hello", GameCell(game: Game)))
+            }
+
+            let helloSection = Section(id: "hello", cells: cellNode)
+            sections.append(helloSection)
+            self?.renderer.render(sections)
         }
     }
-}
 
-extension GamesViewController: UITableViewDataSource, UITableViewDelegate {
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       // let game = viewModel.game(at: indexPath.row)
-        // Yapmak istediğiniz işlemi burada gerçekleştirin
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        isToggled.toggle()
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfGames()
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       let cell = tableView.dequeueReusableCell(withIdentifier: "GameCell", for: indexPath) as! GameCell
-        let game = viewModel.game(at: indexPath.row)
-        cell.configure(with: game)
-
-        return cell
-    }
-}
-
-extension GamesViewController: UISearchBarDelegate {
-
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-           if searchText.count > 3 {
-               // Arama işlemlerini gerçekleştir
-               print(searchText)
-           }
-       }
 }

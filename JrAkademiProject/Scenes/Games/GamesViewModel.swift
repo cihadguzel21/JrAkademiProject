@@ -8,10 +8,26 @@
 import Alamofire
 
 class GameListViewModel {
-    private var games: [Game] = []
-    private let url = "https://api.rawg.io/api/games?page_size=10&page=1&key=3be8af6ebf124ffe81d90f514e59856c"
 
-    func getGames(completion: @escaping () -> Void) {
+        var games: [Game] = []
+
+        func fetchGames(completion: @escaping () -> Void) {
+
+            NetworkManager.shared.fetchGames { [weak self] result in
+                switch result {
+
+                case .success(let games):
+                    self?.games = games
+                    completion()
+
+                case .failure(let error):
+                    print("Hata: \(error.localizedDescription)")
+
+                }
+            }
+        }
+
+  /*  func getGames(completion: @escaping () -> Void) {
         AF.request(url).responseJSON { [weak self] response in
             guard let self = self else { return }
 
@@ -39,13 +55,9 @@ class GameListViewModel {
                 print("Request failed with error: \(error)")
             }
         }
-    }
+    }*/
 
     func numberOfGames() -> Int {
         return games.count
-    }
-
-    func game(at index: Int) -> Game {
-        return games[index]
     }
 }
