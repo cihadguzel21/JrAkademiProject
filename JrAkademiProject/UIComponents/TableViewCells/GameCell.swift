@@ -89,7 +89,7 @@ class GameCell: UIView, Component {
         genreLabel.text = "game.genre"
         ratingLabel.attributedText = createColoredText(text: game.metacritic)
 
-        if let url = URL(string: game.background_image) {
+        if let url = URL(string: game.backgroundImage) {
             gameImageView.kf.setImage(with: url)
         }
         }

@@ -9,23 +9,19 @@ import Alamofire
 
 class GameListViewModel {
 
-        var games: [Game] = []
+    var games: [Game] = []
+    private let baseUrl = "https://api.rawg.io/api/games?key=3be8af6ebf124ffe81d90f514e59856c"
+    private let networkManager = NetworkManager()
+    weak var delegate: GameListViewModelDelegate?
 
-        func fetchGames(completion: @escaping () -> Void) {
-
-            NetworkManager.shared.fetchGames { [weak self] result in
-                switch result {
-
-                case .success(let games):
-                    self?.games = games
-                    completion()
-
-                case .failure(let error):
-                    print("Hata: \(error.localizedDescription)")
-
-                }
-            }
+    func fetchGames() {
+        networkManager.fetchGames(from: baseUrl) { [weak self] (response: WelcomePageResponse?) in
+            guard let games = response?.results else { return }
+            self?.games = games
+            self?.delegate?.gamesFetched()
         }
+    }
+
 
   /*  func getGames(completion: @escaping () -> Void) {
         AF.request(url).responseJSON { [weak self] response in
@@ -60,4 +56,8 @@ class GameListViewModel {
     func numberOfGames() -> Int {
         return games.count
     }
+}
+
+protocol GameListViewModelDelegate: class {
+    func gamesFetched()
 }

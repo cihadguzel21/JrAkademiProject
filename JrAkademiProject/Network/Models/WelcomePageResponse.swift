@@ -4,25 +4,25 @@
 //
 //  Created by cihad güzel on 1.06.2023.
 //
-/*
+
 struct WelcomePageResponse: Codable {
 
-    var results: [GameModel]
+    var results: [Game]
 
 }
 
-struct GameModel: Codable {
+struct Game: Codable {
 
-    let id: Int?
-    let name: String?
-    let backgroundImage: String?
-    let metacritic: Int?
-    let genres: [Genre]?
+    let id: Int
+    let name: String
+    let backgroundImage: String
+    let metacritic: Int
+    let genres: [Genre]
 
     enum CodingKeys: String, CodingKey {
 
         case id, name
-        case backgroundImage
+        case backgroundImage = "background_image"
         case metacritic
         case genres
 
@@ -37,4 +37,4 @@ struct Genre: Codable {
     enum CodingKeys: String, CodingKey {
         case name
     }
-}*/
+}
