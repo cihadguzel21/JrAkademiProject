@@ -40,7 +40,7 @@ class GameCell: UIView, Component {
         super.init(frame: .zero)
         setupViews()
         setupConstraints()
-        configure(with:game)
+        configure(with: game)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -58,28 +58,28 @@ class GameCell: UIView, Component {
 
     // MARK: - SetUp Constraints
     private func setupConstraints() {
-        gameImageView.snp.makeConstraints { make in
-            make.top.left.bottom.equalToSuperview().inset(16)
-            make.width.equalTo(120)
-            make.height.equalTo(104)
+        gameImageView.snp.makeConstraints {
+            $0.top.left.bottom.equalToSuperview().inset(16)
+            $0.width.equalTo(120)
+            $0.height.equalTo(104)
         }
 
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(gameImageView).offset(16)
-            make.left.equalTo(gameImageView.snp.right).offset(16)
-            make.right.equalToSuperview().inset(16)
+        titleLabel.snp.makeConstraints {
+            $0.top.equalTo(gameImageView).offset(16)
+            $0.left.equalTo(gameImageView.snp.right).offset(16)
+            $0.right.equalToSuperview().inset(16)
         }
 
-        ratingLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(genreLabel.snp.top)
-            make.left.equalTo(titleLabel)
-            make.right.equalToSuperview().inset(16)
+        ratingLabel.snp.makeConstraints {
+            $0.bottom.equalTo(genreLabel.snp.top)
+            $0.left.equalTo(titleLabel)
+            $0.right.equalToSuperview().inset(16)
         }
 
-        genreLabel.snp.makeConstraints { make in
-            make.left.equalTo(titleLabel)
-            make.right.equalToSuperview().inset(16)
-            make.bottom.equalTo(gameImageView).inset(16)
+        genreLabel.snp.makeConstraints {
+            $0.left.equalTo(titleLabel)
+            $0.right.equalToSuperview().inset(16)
+            $0.bottom.equalTo(gameImageView).inset(16)
         }
 
     }
@@ -108,7 +108,7 @@ class GameCell: UIView, Component {
     }
 }
 
-  //change color of a part of text
+  // change color of a part of text
 func createColoredText(text: Int) -> NSMutableAttributedString {
     let fullText = "Metacritic Rating: \(text)"
     let attributedString = NSMutableAttributedString(string: fullText)
@@ -120,5 +120,4 @@ func createColoredText(text: Int) -> NSMutableAttributedString {
 
     return attributedString
 }
-
 

@@ -22,7 +22,7 @@ class GamesViewController: UIViewController, GameListViewModelDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Games" //Set Tab Title
+        self.title = "Games" // Set Tab Title
         viewModel.delegate = self
         view.backgroundColor = .white
         renderer.target = tableView
@@ -37,37 +37,35 @@ class GamesViewController: UIViewController, GameListViewModelDelegate {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 120
         tableView.separatorStyle = .none
+        tableView.contentInset = UIEdgeInsets(top: -30, left: 0, bottom: 0, right: 0)
+
 
         view.addSubview(tableView)
         tableView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-     }
-
+        }
 
     func render() {
         var sections: [Section] = []
         var cellNode: [CellNode] = []
 
-       viewModel.games.forEach { Game in
-            cellNode.append(CellNode(id: "hello", GameCell(game: Game)))
+        viewModel.games.forEach { game in
+            cellNode.append(CellNode(id: "hello", GameCell(game: game)))
         }
 
         let helloSection = Section(id: "hello", cells: cellNode)
         sections.append(helloSection)
-       renderer.render(sections)
-
-    }
+        renderer.render(sections)
+        }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         isToggled.toggle()
-    }
+        }
 
+    //Delegate Fonksiyonu
     func gamesFetched() {
-           // ViewModel'den gelen verileri kullanarak işlemler yapabilirsiniz
-
         render()
-       }
-
+        }
 }
