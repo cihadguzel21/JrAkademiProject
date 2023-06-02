@@ -87,9 +87,10 @@ class GameCell: UIView, Component {
     func configure(with game: Game) {
         titleLabel.text = game.name
         genreLabel.text = "game.genre"
-        ratingLabel.attributedText = createColoredText(text: game.metacritic)
+        ratingLabel.attributedText = createColoredText(text: game.metacritic ?? 0)
 
-        if let url = URL(string: game.backgroundImage) {
+        guard let imageUrl = game.backgroundImage else { return }
+        if let url = URL(string: imageUrl) {
             gameImageView.kf.setImage(with: url)
         }
         }

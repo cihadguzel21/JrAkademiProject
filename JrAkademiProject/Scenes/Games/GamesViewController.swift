@@ -12,7 +12,7 @@ class GamesViewController: UIViewController, GameListViewModelDelegate {
 
     private let viewModel = GameListViewModel()
     private let tableView = UITableView()
-     var searchController = UISearchController(searchResultsController: nil)
+    var searchController = UISearchController(searchResultsController: nil)
 
     var isToggled = false {
         didSet { render() }}
@@ -71,18 +71,18 @@ class GamesViewController: UIViewController, GameListViewModelDelegate {
         isToggled.toggle()
         }
 
-    //Delegate Fonksiyonu
+    // Delegate Fonksiyonu
     func gamesFetched() {
         render()
         }
-    
 }
+
 extension GamesViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 
-        if searchText.count > 2 {
-            // Servis isteğini burada başlatabilirsiniz
-            print(searchText)
+        if searchText.count > 3 {
+            // SearchRequest
+            viewModel.fetchSearchResult(searchText: searchText)
         } else {
             // gamesViewController.fetchGames()
         }
