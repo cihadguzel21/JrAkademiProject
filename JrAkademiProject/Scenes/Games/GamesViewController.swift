@@ -8,7 +8,7 @@ import UIKit
 import SnapKit
 import Carbon
 
-class GamesViewController: UIViewController {
+class GamesViewController: UIViewController, GameListViewModelDelegate {
 
     private let viewModel = GameListViewModel()
     private let tableView = UITableView()
@@ -23,10 +23,12 @@ class GamesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Games" //Set Tab Title
+        viewModel.delegate = self
         view.backgroundColor = .white
         renderer.target = tableView
 
         setupTableView()
+        viewModel.fetchGames()
         render()
     }
 
@@ -47,21 +49,25 @@ class GamesViewController: UIViewController {
         var sections: [Section] = []
         var cellNode: [CellNode] = []
 
-        viewModel.fetchGames { [weak self] in
-
-            self?.viewModel.games.forEach { Game in
-                cellNode.append(CellNode(id: "hello", GameCell(game: Game)))
-            }
-
-            let helloSection = Section(id: "hello", cells: cellNode)
-            sections.append(helloSection)
-            self?.renderer.render(sections)
+       viewModel.games.forEach { Game in
+            cellNode.append(CellNode(id: "hello", GameCell(game: Game)))
         }
+
+        let helloSection = Section(id: "hello", cells: cellNode)
+        sections.append(helloSection)
+       renderer.render(sections)
+
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         isToggled.toggle()
     }
+
+    func gamesFetched() {
+           // ViewModel'den gelen verileri kullanarak işlemler yapabilirsiniz
+
+        render()
+       }
 
 }
