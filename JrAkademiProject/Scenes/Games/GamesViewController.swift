@@ -12,6 +12,7 @@ class GamesViewController: UIViewController, GameListViewModelDelegate {
 
     private let viewModel = GameListViewModel()
     private let tableView = UITableView()
+     var searchController = UISearchController(searchResultsController: nil)
 
     var isToggled = false {
         didSet { render() }}
@@ -26,6 +27,12 @@ class GamesViewController: UIViewController, GameListViewModelDelegate {
         viewModel.delegate = self
         view.backgroundColor = .white
         renderer.target = tableView
+
+        // Arama çubuğunu oluştur
+        searchController.searchBar.placeholder = "Search"
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.searchBar.delegate = self
 
         setupTableView()
         viewModel.fetchGames()
@@ -68,4 +75,16 @@ class GamesViewController: UIViewController, GameListViewModelDelegate {
     func gamesFetched() {
         render()
         }
+    
+}
+extension GamesViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+
+        if searchText.count > 2 {
+            // Servis isteğini burada başlatabilirsiniz
+            print(searchText)
+        } else {
+            // gamesViewController.fetchGames()
+        }
+    }
 }
