@@ -14,10 +14,10 @@ struct WelcomePageResponse: Codable {
 struct Game: Codable {
 
     let id: Int
-    let name: String
-    let backgroundImage: String
-    let metacritic: Int
-    let genres: [Genre]
+    let name: String?
+    let backgroundImage: String?
+    let metacritic: Int?
+    let genres: [Genre]?
 
     enum CodingKeys: String, CodingKey {
 

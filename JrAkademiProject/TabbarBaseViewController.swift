@@ -23,10 +23,11 @@ class TabbarBaseViewController: UIViewController {
         // Arama çubuğunu oluştur
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = "Search"
-        navigationItem.searchController = searchController
+        navigationItem.searchController = searchController 
         navigationItem.hidesSearchBarWhenScrolling = false
-        gamesViewController.navigationItem.searchController = searchController
 
+        // Search Controller'ı gamesViewController'a aktar
+        gamesViewController.searchController = searchController
 
         // Favorites tabı için ViewController oluşturma
         let favoritesViewController = FavoritesViewController()
