@@ -27,7 +27,7 @@ class GameListViewModel {
     }
 
     // MARK: SearchRequest
-    func fetchSearchResult(searchText:String) {
+    func fetchSearchResult(searchText: String) {
         games = []
         url = "https://api.rawg.io/api/games?page=1&page_size=10&search=\(searchText)&key=3be8af6ebf124ffe81d90f514e59856c"
         guard let baseUrl = url else { return }
