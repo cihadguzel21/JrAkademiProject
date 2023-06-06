@@ -22,8 +22,8 @@ class DescriptionComponent: UIView, Component {
 
     let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 10)
-        label.numberOfLines = 4
+        label.font = UIFont.systemFont(ofSize: 10 ,weight: .light)
+        label.numberOfLines = 0
         return label
     }()
 

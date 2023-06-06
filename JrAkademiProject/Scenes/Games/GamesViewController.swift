@@ -18,8 +18,9 @@ class GamesViewController: UIViewController, GameListViewModelDelegate {
         didSet { render() }}
 
     private let renderer = Renderer(
-        adapter: UITableViewAdapter(),
-        updater: UITableViewUpdater())
+        adapter: CustomTableViewAdapter(),
+        updater: UITableViewUpdater()
+      )
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,12 +35,13 @@ class GamesViewController: UIViewController, GameListViewModelDelegate {
         navigationItem.hidesSearchBarWhenScrolling = false
         searchController.searchBar.delegate = self
 
+        NotificationCenter.default.addObserver(self, selector: #selector(veriAlindi(notification:)), name: NSNotification.Name("İslemTamamlandi"), object: nil)
+
         setupTableView()
         viewModel.fetchGames()
     }
 
     private func setupTableView() {
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 120
         tableView.separatorStyle = .none
@@ -58,17 +60,21 @@ class GamesViewController: UIViewController, GameListViewModelDelegate {
 
         viewModel.games.forEach { game in
 
-            let gameCell = GameCell(game: game)
+            var gameCell = GameCellStruct(game: game)
+            print(game.name)
 
             gameCell.tapGestureHandler = { [weak self] gameID in
                 // click Handler
                 let detailsViewController = DetailsViewController()
                 detailsViewController.gamesId = String(gameID)
                 self?.navigationController?.pushViewController(detailsViewController, animated: true)
-
             }
             cellNode.append(CellNode(id: "defaultCell", gameCell))
         }
+        print("********************************+ \(cellNode.count)")
+
+        let updateCell = CellNode(id: "loading", LoadingCell())
+                 cellNode.append(updateCell)
 
         let helloSection = Section(id: "defaultSection", cells: cellNode)
         sections.append(helloSection)
@@ -85,6 +91,16 @@ class GamesViewController: UIViewController, GameListViewModelDelegate {
     func gamesFetched() {
         render()
         }
+
+    // Veriyi alma fonksiyonu
+      @objc func veriAlindi(notification: Notification) {
+        if let veri = notification.userInfo?["veri"] as? Bool {
+          // Veriyi kullan
+          // Örneğin, başka bir view controller'ı açmak ve veriyi göndermek:
+            print("notification \(veri)")
+            viewModel.fetchGames()
+        }
+      }
 }
 
 extension GamesViewController: UISearchBarDelegate {

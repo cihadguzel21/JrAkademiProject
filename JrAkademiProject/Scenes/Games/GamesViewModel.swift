@@ -16,12 +16,12 @@ class GameListViewModel {
 
     // MARK: DefaultRequest
     func fetchGames() {
-        games = []
+       // games = []
         url = "https://api.rawg.io/api/games?page_size=10&key=3be8af6ebf124ffe81d90f514e59856c"
         guard let baseUrl = url else { return }
         networkManager.fetchGames(from: baseUrl) { [weak self] (response: WelcomePageResponse?) in
             guard let games = response?.results else { return }
-            self?.games = games
+            self?.games.append(contentsOf: games)
             self?.delegate?.gamesFetched()
         }
     }

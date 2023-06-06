@@ -39,7 +39,6 @@ class DetailsViewController: UIViewController, DetailsViewModelDelegate {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = UITableView.automaticDimension
-        tableView.separatorStyle = .none
         tableView.contentInset = UIEdgeInsets(top: -30, left: 0, bottom: 0, right: 0)
 
         view.addSubview(tableView)
