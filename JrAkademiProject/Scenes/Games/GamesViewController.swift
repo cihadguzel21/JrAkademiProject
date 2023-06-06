@@ -36,7 +36,6 @@ class GamesViewController: UIViewController, GameListViewModelDelegate {
 
         setupTableView()
         viewModel.fetchGames()
-        render()
     }
 
     private func setupTableView() {
@@ -58,20 +57,31 @@ class GamesViewController: UIViewController, GameListViewModelDelegate {
         var cellNode: [CellNode] = []
 
         viewModel.games.forEach { game in
-            cellNode.append(CellNode(id: "hello", GameCell(game: game)))
+
+            let gameCell = GameCell(game: game)
+
+            gameCell.tapGestureHandler = { [weak self] gameID in
+                // click Handler
+                let detailsViewController = DetailsViewController()
+                detailsViewController.gamesId = String(gameID)
+                self?.navigationController?.pushViewController(detailsViewController, animated: true)
+
+            }
+            cellNode.append(CellNode(id: "defaultCell", gameCell))
         }
 
-        let helloSection = Section(id: "hello", cells: cellNode)
+        let helloSection = Section(id: "defaultSection", cells: cellNode)
         sections.append(helloSection)
         renderer.render(sections)
         }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
+
         isToggled.toggle()
         }
 
-    // Delegate Fonksiyonu
+    // Delegate Function
     func gamesFetched() {
         render()
         }

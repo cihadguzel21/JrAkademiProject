@@ -12,6 +12,9 @@ import Carbon
 
 class GameCell: UIView, Component {
 
+    var tapGestureHandler: ((Int) -> Void)?
+    private var gameID: Int?
+
     let gameImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -38,6 +41,7 @@ class GameCell: UIView, Component {
 
     init(game: Game) {
         super.init(frame: .zero)
+        self.gameID = game.id
         setupViews()
         setupConstraints()
         configure(with: game)
@@ -54,6 +58,10 @@ class GameCell: UIView, Component {
         addSubview(titleLabel)
         addSubview(ratingLabel)
         addSubview(genreLabel)
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
+        addGestureRecognizer(tapGesture)
+        isUserInteractionEnabled = true
     }
 
     // MARK: - SetUp Constraints
@@ -93,7 +101,7 @@ class GameCell: UIView, Component {
         if let url = URL(string: imageUrl) {
             gameImageView.kf.setImage(with: url)
         }
-        }
+    }
 
     // MARK: - Component
     func render(in content: GameCell) {
@@ -107,18 +115,23 @@ class GameCell: UIView, Component {
     func renderContent() -> GameCell {
         return self
     }
+
+    // MARK: Handle click
+    @objc private func handleTapGesture(_ gesture: UITapGestureRecognizer) {
+        guard let gameID = self.gameID else { return}
+        tapGestureHandler?(gameID)
+    }
+
+    /// change color of a part of text
+    func createColoredText(text: Int) -> NSMutableAttributedString {
+        let fullText = "Metacritic Rating: \(text)"
+        let attributedString = NSMutableAttributedString(string: fullText)
+
+        let targetText = "\(text)"
+        let range = (fullText as NSString).range(of: targetText)
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red, range: range)
+        attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: 14), range: range)
+
+        return attributedString
+    }
 }
-
-  // change color of a part of text
-func createColoredText(text: Int) -> NSMutableAttributedString {
-    let fullText = "Metacritic Rating: \(text)"
-    let attributedString = NSMutableAttributedString(string: fullText)
-
-    let targetText = "\(text)"
-    let range = (fullText as NSString).range(of: targetText)
-    attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red, range: range)
-    attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: 14), range: range)
-
-    return attributedString
-}
-

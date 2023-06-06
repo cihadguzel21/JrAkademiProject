@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B0F4FC02A2D1D250005D0D7 /* DetailsViewmodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0F4FBF2A2D1D250005D0D7 /* DetailsViewmodel.swift */; };
+		8B0F4FC22A2D1D470005D0D7 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0F4FC12A2D1D470005D0D7 /* DetailsViewController.swift */; };
+		8B0F4FCC2A2E3AE60005D0D7 /* DescriptionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0F4FCB2A2E3AE60005D0D7 /* DescriptionComponent.swift */; };
+		8B0F4FCE2A2E407D0005D0D7 /* OpenUrlComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0F4FCD2A2E407D0005D0D7 /* OpenUrlComponent.swift */; };
 		8B920D972A27F52B00FB94A5 /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B920D962A27F52B00FB94A5 /* GameCell.swift */; };
-		8B920D992A27F55000FB94A5 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B920D982A27F55000FB94A5 /* Game.swift */; };
+		8B920D992A27F55000FB94A5 /* DetailResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B920D982A27F55000FB94A5 /* DetailResponseModel.swift */; };
 		8B920D9E2A27F5F800FB94A5 /* GamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B920D9D2A27F5F800FB94A5 /* GamesViewController.swift */; };
 		8B920DA02A27F62100FB94A5 /* GamesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B920D9F2A27F62100FB94A5 /* GamesViewModel.swift */; };
 		8B920DA22A27F64B00FB94A5 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B920DA12A27F64B00FB94A5 /* FavoritesViewModel.swift */; };
@@ -21,13 +25,17 @@
 		8BAF98482A24CF27005D7F46 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BAF98462A24CF27005D7F46 /* LaunchScreen.storyboard */; };
 		8BC791782A28B8AE001FFC6C /* WelcomePageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC791772A28B8AE001FFC6C /* WelcomePageResponse.swift */; };
 		8BC7917A2A28BA76001FFC6C /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC791792A28BA76001FFC6C /* APIManager.swift */; };
-		8BC7917C2A28D236001FFC6C /* HelloMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC7917B2A28D236001FFC6C /* HelloMessage.swift */; };
+		8BC7917C2A28D236001FFC6C /* ImageWithTitleComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC7917B2A28D236001FFC6C /* ImageWithTitleComponent.swift */; };
 		8F015A27F88A8AF2AF4A9A6C /* Pods_JrAkademiProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 945B4979EA0DB997FD5AC1A8 /* Pods_JrAkademiProject.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8B0F4FBF2A2D1D250005D0D7 /* DetailsViewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewmodel.swift; sourceTree = "<group>"; };
+		8B0F4FC12A2D1D470005D0D7 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		8B0F4FCB2A2E3AE60005D0D7 /* DescriptionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionComponent.swift; sourceTree = "<group>"; };
+		8B0F4FCD2A2E407D0005D0D7 /* OpenUrlComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenUrlComponent.swift; sourceTree = "<group>"; };
 		8B920D962A27F52B00FB94A5 /* GameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
-		8B920D982A27F55000FB94A5 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		8B920D982A27F55000FB94A5 /* DetailResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailResponseModel.swift; sourceTree = "<group>"; };
 		8B920D9D2A27F5F800FB94A5 /* GamesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesViewController.swift; sourceTree = "<group>"; };
 		8B920D9F2A27F62100FB94A5 /* GamesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesViewModel.swift; sourceTree = "<group>"; };
 		8B920DA12A27F64B00FB94A5 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
@@ -42,7 +50,7 @@
 		8BAF98492A24CF27005D7F46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BC791772A28B8AE001FFC6C /* WelcomePageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePageResponse.swift; sourceTree = "<group>"; };
 		8BC791792A28BA76001FFC6C /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
-		8BC7917B2A28D236001FFC6C /* HelloMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloMessage.swift; sourceTree = "<group>"; };
+		8BC7917B2A28D236001FFC6C /* ImageWithTitleComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWithTitleComponent.swift; sourceTree = "<group>"; };
 		945B4979EA0DB997FD5AC1A8 /* Pods_JrAkademiProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JrAkademiProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5C5F0DE27231060E557613D /* Pods-JrAkademiProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JrAkademiProject.debug.xcconfig"; path = "Target Support Files/Pods-JrAkademiProject/Pods-JrAkademiProject.debug.xcconfig"; sourceTree = "<group>"; };
 		D4C29E2F11C63224FF093934 /* Pods-JrAkademiProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JrAkademiProject.release.xcconfig"; path = "Target Support Files/Pods-JrAkademiProject/Pods-JrAkademiProject.release.xcconfig"; sourceTree = "<group>"; };
@@ -67,6 +75,15 @@
 				D4C29E2F11C63224FF093934 /* Pods-JrAkademiProject.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		8B0F4FBE2A2D1CDA0005D0D7 /* DetailScreen */ = {
+			isa = PBXGroup;
+			children = (
+				8B0F4FBF2A2D1D250005D0D7 /* DetailsViewmodel.swift */,
+				8B0F4FC12A2D1D470005D0D7 /* DetailsViewController.swift */,
+			);
+			path = DetailScreen;
 			sourceTree = "<group>";
 		};
 		8B920D9B2A27F5D400FB94A5 /* Games */ = {
@@ -133,6 +150,7 @@
 		8BAF98512A2501CB005D7F46 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				8B0F4FBE2A2D1CDA0005D0D7 /* DetailScreen */,
 				8B920D9C2A27F5DC00FB94A5 /* Favorites */,
 				8B920D9B2A27F5D400FB94A5 /* Games */,
 			);
@@ -143,6 +161,9 @@
 			isa = PBXGroup;
 			children = (
 				8BAF98532A250222005D7F46 /* TableViewCells */,
+				8B0F4FCB2A2E3AE60005D0D7 /* DescriptionComponent.swift */,
+				8B0F4FCD2A2E407D0005D0D7 /* OpenUrlComponent.swift */,
+				8BC7917B2A28D236001FFC6C /* ImageWithTitleComponent.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -151,7 +172,6 @@
 			isa = PBXGroup;
 			children = (
 				8B920D962A27F52B00FB94A5 /* GameCell.swift */,
-				8BC7917B2A28D236001FFC6C /* HelloMessage.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -168,7 +188,7 @@
 		8BAF98552A250355005D7F46 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8B920D982A27F55000FB94A5 /* Game.swift */,
+				8B920D982A27F55000FB94A5 /* DetailResponseModel.swift */,
 				8BC791772A28B8AE001FFC6C /* WelcomePageResponse.swift */,
 			);
 			path = Models;
@@ -328,14 +348,18 @@
 				8B920D9E2A27F5F800FB94A5 /* GamesViewController.swift in Sources */,
 				8B920D972A27F52B00FB94A5 /* GameCell.swift in Sources */,
 				8B920DA22A27F64B00FB94A5 /* FavoritesViewModel.swift in Sources */,
-				8B920D992A27F55000FB94A5 /* Game.swift in Sources */,
+				8B920D992A27F55000FB94A5 /* DetailResponseModel.swift in Sources */,
 				8BAF98432A24CF24005D7F46 /* JrAkademiProject.xcdatamodeld in Sources */,
+				8B0F4FCE2A2E407D0005D0D7 /* OpenUrlComponent.swift in Sources */,
 				8BAF983D2A24CF24005D7F46 /* TabbarBaseViewController.swift in Sources */,
-				8BC7917C2A28D236001FFC6C /* HelloMessage.swift in Sources */,
+				8BC7917C2A28D236001FFC6C /* ImageWithTitleComponent.swift in Sources */,
+				8B0F4FC02A2D1D250005D0D7 /* DetailsViewmodel.swift in Sources */,
 				8BAF98392A24CF24005D7F46 /* AppDelegate.swift in Sources */,
 				8B920DA42A27F65A00FB94A5 /* FavoritesViewController.swift in Sources */,
+				8B0F4FCC2A2E3AE60005D0D7 /* DescriptionComponent.swift in Sources */,
 				8BAF983B2A24CF24005D7F46 /* SceneDelegate.swift in Sources */,
 				8BC791782A28B8AE001FFC6C /* WelcomePageResponse.swift in Sources */,
+				8B0F4FC22A2D1D470005D0D7 /* DetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
