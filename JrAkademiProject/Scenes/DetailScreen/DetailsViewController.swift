@@ -29,6 +29,8 @@ class DetailsViewController: UIViewController, DetailsViewModelDelegate {
         view.backgroundColor = .white
         renderer.target = tableView
 
+        let favoriteButton = UIBarButtonItem(title: "Favorite", style: .plain, target: self, action: #selector(favoriteButtonTapped))
+            navigationItem.rightBarButtonItem = favoriteButton
         setupTableView()
         viewModel.fetchDetails(gameID: gamesId)
     }
@@ -73,5 +75,11 @@ class DetailsViewController: UIViewController, DetailsViewModelDelegate {
     // Delegate Function
     func detailsFetched() {
         render()
+    }
+
+    @objc private func favoriteButtonTapped() {
+       
+        // Favoriye ekleme/çıkarma işlemlerini burada yapabilirsiniz
+
     }
 }
