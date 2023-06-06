@@ -11,6 +11,8 @@
 		8B0F4FC22A2D1D470005D0D7 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0F4FC12A2D1D470005D0D7 /* DetailsViewController.swift */; };
 		8B0F4FCC2A2E3AE60005D0D7 /* DescriptionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0F4FCB2A2E3AE60005D0D7 /* DescriptionComponent.swift */; };
 		8B0F4FCE2A2E407D0005D0D7 /* OpenUrlComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0F4FCD2A2E407D0005D0D7 /* OpenUrlComponent.swift */; };
+		8B0F4FD02A2F5B260005D0D7 /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0F4FCF2A2F5B260005D0D7 /* LoadingCell.swift */; };
+		8B0F4FD22A2F5C430005D0D7 /* CustomAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0F4FD12A2F5C430005D0D7 /* CustomAdapter.swift */; };
 		8B920D972A27F52B00FB94A5 /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B920D962A27F52B00FB94A5 /* GameCell.swift */; };
 		8B920D992A27F55000FB94A5 /* DetailResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B920D982A27F55000FB94A5 /* DetailResponseModel.swift */; };
 		8B920D9E2A27F5F800FB94A5 /* GamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B920D9D2A27F5F800FB94A5 /* GamesViewController.swift */; };
@@ -34,6 +36,8 @@
 		8B0F4FC12A2D1D470005D0D7 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		8B0F4FCB2A2E3AE60005D0D7 /* DescriptionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionComponent.swift; sourceTree = "<group>"; };
 		8B0F4FCD2A2E407D0005D0D7 /* OpenUrlComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenUrlComponent.swift; sourceTree = "<group>"; };
+		8B0F4FCF2A2F5B260005D0D7 /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
+		8B0F4FD12A2F5C430005D0D7 /* CustomAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAdapter.swift; sourceTree = "<group>"; };
 		8B920D962A27F52B00FB94A5 /* GameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
 		8B920D982A27F55000FB94A5 /* DetailResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailResponseModel.swift; sourceTree = "<group>"; };
 		8B920D9D2A27F5F800FB94A5 /* GamesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesViewController.swift; sourceTree = "<group>"; };
@@ -134,6 +138,7 @@
 				8BAF98462A24CF27005D7F46 /* LaunchScreen.storyboard */,
 				8BAF98492A24CF27005D7F46 /* Info.plist */,
 				8BAF98412A24CF24005D7F46 /* JrAkademiProject.xcdatamodeld */,
+				8B0F4FD12A2F5C430005D0D7 /* CustomAdapter.swift */,
 			);
 			path = JrAkademiProject;
 			sourceTree = "<group>";
@@ -164,6 +169,7 @@
 				8B0F4FCB2A2E3AE60005D0D7 /* DescriptionComponent.swift */,
 				8B0F4FCD2A2E407D0005D0D7 /* OpenUrlComponent.swift */,
 				8BC7917B2A28D236001FFC6C /* ImageWithTitleComponent.swift */,
+				8B0F4FCF2A2F5B260005D0D7 /* LoadingCell.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -349,8 +355,10 @@
 				8B920D972A27F52B00FB94A5 /* GameCell.swift in Sources */,
 				8B920DA22A27F64B00FB94A5 /* FavoritesViewModel.swift in Sources */,
 				8B920D992A27F55000FB94A5 /* DetailResponseModel.swift in Sources */,
+				8B0F4FD02A2F5B260005D0D7 /* LoadingCell.swift in Sources */,
 				8BAF98432A24CF24005D7F46 /* JrAkademiProject.xcdatamodeld in Sources */,
 				8B0F4FCE2A2E407D0005D0D7 /* OpenUrlComponent.swift in Sources */,
+				8B0F4FD22A2F5C430005D0D7 /* CustomAdapter.swift in Sources */,
 				8BAF983D2A24CF24005D7F46 /* TabbarBaseViewController.swift in Sources */,
 				8BC7917C2A28D236001FFC6C /* ImageWithTitleComponent.swift in Sources */,
 				8B0F4FC02A2D1D250005D0D7 /* DetailsViewmodel.swift in Sources */,

@@ -10,14 +10,15 @@ import SnapKit
 import Kingfisher
 import Carbon
 
-class GameCell: UIView, Component {
+class GameCell: UITableViewCell {
 
     var tapGestureHandler: ((Int) -> Void)?
-    private var gameID: Int?
+    var gameID: Int?
 
     let gameImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
+
         return imageView
     }()
 
@@ -39,19 +40,15 @@ class GameCell: UIView, Component {
         return label
     }()
 
-    init(game: Game) {
-        super.init(frame: .zero)
-        self.gameID = game.id
-        setupViews()
-        setupConstraints()
-        configure(with: game)
-    }
 
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
         setupConstraints()
-    }
+      }
+      required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+      }
 
     private func setupViews() {
         addSubview(gameImageView)
@@ -59,7 +56,7 @@ class GameCell: UIView, Component {
         addSubview(ratingLabel)
         addSubview(genreLabel)
 
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         addGestureRecognizer(tapGesture)
         isUserInteractionEnabled = true
     }
@@ -67,9 +64,10 @@ class GameCell: UIView, Component {
     // MARK: - SetUp Constraints
     private func setupConstraints() {
         gameImageView.snp.makeConstraints {
-            $0.top.left.bottom.equalToSuperview().inset(16)
+            $0.top.left.equalToSuperview().offset(16)
             $0.width.equalTo(120)
             $0.height.equalTo(104)
+            $0.bottom.equalToSuperview().inset(16)
         }
 
         titleLabel.snp.makeConstraints {
@@ -92,35 +90,42 @@ class GameCell: UIView, Component {
 
     }
 
-    func configure(with game: Game) {
-        titleLabel.text = game.name
-        genreLabel.text = "game.genre"
-        ratingLabel.attributedText = createColoredText(text: game.metacritic ?? 0)
-
-        guard let imageUrl = game.backgroundImage else { return }
-        if let url = URL(string: imageUrl) {
-            gameImageView.kf.setImage(with: url)
-        }
-    }
-
-    // MARK: - Component
-    func render(in content: GameCell) {
-        // Burada herhangi bir işlem yapmanıza gerek yok
-    }
-
-    func referenceSize(in bounds: CGRect) -> CGSize? {
-        return CGSize(width: bounds.width, height: 100) // Replace 64 with the desired height value
-    }
-
-    func renderContent() -> GameCell {
-        return self
-    }
-
     // MARK: Handle click
-    @objc private func handleTapGesture(_ gesture: UITapGestureRecognizer) {
-        guard let gameID = self.gameID else { return}
-        tapGestureHandler?(gameID)
+    @objc private func handleTapGesture() {
+        tapGestureHandler?(gameID ?? 00)
     }
+
+}
+
+struct GameCellStruct: Component {
+  let game: Game
+    var tapGestureHandler: ((Int) -> Void)?
+
+  func renderContent() -> GameCell {
+    return GameCell(style: .default, reuseIdentifier: "GameTableViewCell")
+  }
+  func genreToString(array: [String]) -> String {
+    return array.joined(separator: ", ")
+  }
+  func render(in content: GameCell) {
+      content.titleLabel.text = game.name
+      content.genreLabel.text = "game.genre"
+      content.ratingLabel.attributedText = createColoredText(text: game.metacritic ?? 0)
+
+      guard let imageUrl = game.backgroundImage else { return }
+      if let url = URL(string: imageUrl) {
+          content.gameImageView.kf.setImage(with: url)
+      }
+      content.gameID = game.id
+      content.tapGestureHandler = tapGestureHandler
+  }
+
+  func referenceSize(in bounds: CGRect) -> CGSize? {
+    return CGSize(width: bounds.width, height: 136)
+  }
+  func shouldContentUpdate(with next: GameCellStruct) -> Bool {
+    return false
+  }
 
     /// change color of a part of text
     func createColoredText(text: Int) -> NSMutableAttributedString {
@@ -135,3 +140,4 @@ class GameCell: UIView, Component {
         return attributedString
     }
 }
+
