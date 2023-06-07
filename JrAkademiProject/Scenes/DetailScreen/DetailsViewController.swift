@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Carbon
+import CoreData
 
 class DetailsViewController: UIViewController, DetailsViewModelDelegate {
 
@@ -74,11 +75,67 @@ class DetailsViewController: UIViewController, DetailsViewModelDelegate {
     // Delegate Function
     func detailsFetched() {
         render()
+
+        /// Tıklanan oyun favorilerde varsa butonun textini favorited yap
+        guard let name = viewModel.gameDetails?.name else { return }
+        let alreadyFavorited = isGameAlreadyFavorited(key: "name", value: name)
+         if alreadyFavorited {
+           navigationItem.rightBarButtonItem?.title = "Favorited" // UIBarButtonItem'ın title'ını "Ufuk" olarak güncelle
+         }
     }
 
     @objc private func favoriteButtonTapped() {
-       
-        // Favoriye ekleme/çıkarma işlemlerini burada yapabilirsiniz
 
-    }
+        /// Data
+        guard let id = viewModel.gameDetails?.id else { return }
+        guard let name = viewModel.gameDetails?.name else { return }
+        guard let metacritic = viewModel.gameDetails?.metacritic else { return }
+        let genre = "genre"
+        guard let imageUrl = viewModel.gameDetails?.backgroundImageAdditional else { return }
+
+        /// context ve AppDelegate tanımla
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let context = appDelegate.persistentContainer.viewContext
+        let favorite = NSEntityDescription.insertNewObject(forEntityName: "FavoritesDB", into: context)
+
+        /// tablodan data oku, tabloda varsa tekrar kaydetme, kullanıcıya uyarı ver
+        if isGameAlreadyFavorited(key: "name", value: name) {
+            showAlert(message: "Oyun Favorilerde var!")
+            return
+        }
+
+        /// Değerleri veritabanına kaydet
+        favorite.setValue(String(id), forKey: "id")
+        favorite.setValue(name, forKey: "name")
+        favorite.setValue(String(metacritic), forKey: "metacritic")
+        favorite.setValue(genre, forKey: "genre")
+        favorite.setValue(imageUrl, forKey: "imageUrl")
+        do {
+            try context.save()
+          navigationItem.rightBarButtonItem?.title = "Favorited" // UIBarButtonItem'ın title'ını güncelle
+        } catch let error as NSError {
+            print("Favori kaydedilemedi: \(error), \(error.userInfo)")
+        }
+        }
+
+        private func showAlert(message: String) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Tamam", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+        }
+
+    func isGameAlreadyFavorited(key: String, value: String) -> Bool {
+                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                return false
+            }
+          let managedContext = appDelegate.persistentContainer.viewContext
+          let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoritesDB")
+          fetchRequest.predicate = NSPredicate(format: "\(key) == %@", value)
+          do {
+            let results = try managedContext.fetch(fetchRequest)
+            return !results.isEmpty
+          } catch { print("Favori Bulunamadı")
+              return false
+          }
+        }
 }
