@@ -114,7 +114,8 @@ struct GameCellStruct: Component {
 
       guard let imageUrl = game.backgroundImage else { return }
       if let url = URL(string: imageUrl) {
-          content.gameImageView.kf.setImage(with: url)
+          let myProcessor = DownsamplingImageProcessor(size: CGSize(width: 120, height: 104))
+          content.gameImageView.kf.setImage(with: url ,options: [.processor(myProcessor)])
       }
       content.gameID = game.id
       content.tapGestureHandler = tapGestureHandler
