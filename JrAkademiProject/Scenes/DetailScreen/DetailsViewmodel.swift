@@ -17,7 +17,7 @@ class DetailsViewModel {
     // MARK: DefaultRequest
     func fetchDetails(gameID: String) {
 
-        url = "https://api.rawg.io/api/games/\(gameID)?key=3be8af6ebf124ffe81d90f514e59856c"
+        url = "https://api.rawg.io/api/games/\(gameID)?key=d034a75038454466bec9e04d774a3336"
         guard let baseUrl = url else { return }
         networkManager.fetchGames(from: baseUrl) { [weak self] (response: DetailResponseModel?) in
             guard let gameDetails = response else { return }
