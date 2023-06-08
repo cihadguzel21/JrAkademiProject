@@ -16,7 +16,7 @@ struct DetailResponseModel: Decodable {
     let website: String?
     let redditURL: String?
     let metacritic: Int?
-    let genres: [Genre]?
+    let genres: [Genre]
 
 
     enum CodingKeys: String, CodingKey {
