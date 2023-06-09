@@ -13,6 +13,10 @@ class GamesViewController: UIViewController, GameListViewModelDelegate {
     private let viewModel = GameListViewModel()
     private let tableView = UITableView()
     var searchController = UISearchController(searchResultsController: nil)
+    var mySearchText = ""
+    var isEmptySearch = false
+    var timer: Timer?
+    var isTypingAllowed = true
 
     var isToggled = false {
         didSet { render() }}
@@ -58,23 +62,54 @@ class GamesViewController: UIViewController, GameListViewModelDelegate {
         var sections: [Section] = []
         var cellNode: [CellNode] = []
 
-        viewModel.games.forEach { game in
-
-            var gameCell = GameCellStruct(game: game)
-            print(game.name)
-
-            gameCell.tapGestureHandler = { [weak self] gameID in
-                // click Handler
-                let detailsViewController = DetailsViewController()
-                detailsViewController.gamesId = String(gameID)
-                self?.navigationController?.pushViewController(detailsViewController, animated: true)
-            }
-            cellNode.append(CellNode(id: "defaultCell", gameCell))
+        /// arama yaparken 3 karakterden kuçukse empty cell goster
+        if isEmptySearch {
+            cellNode.append(CellNode(id: "emptyCell", EmptyComponent(name: "No Game has been Searched.")))
+            let helloSection = Section(id: "defaultSection", cells: cellNode)
+            sections.append(helloSection)
+            renderer.render(sections)
+            return
         }
-        print("********************************+ \(cellNode.count)")
 
-        let updateCell = CellNode(id: "loading", LoadingCell())
-                 cellNode.append(updateCell)
+        /// search Request ise
+        if viewModel.isSearchRequest {
+
+            viewModel.gamesSearch.forEach { game in
+
+                var gameCell = GameCellStruct(game: game)
+                print(game.name)
+
+                gameCell.tapGestureHandler = { [weak self] gameID in
+                    /// click Handler
+                    let detailsViewController = DetailsViewController()
+                    detailsViewController.gamesId = String(gameID)
+                    self?.navigationController?.pushViewController(detailsViewController, animated: true)
+                }
+                cellNode.append(CellNode(id: game.id, gameCell))
+            }
+
+        } else { /// Default Request ise
+            print(viewModel.gamesDefault.count,"games search ***********************")
+            viewModel.gamesDefault.forEach { game in
+
+                var gameCell = GameCellStruct(game: game)
+                print(game.name)
+
+                gameCell.tapGestureHandler = { [weak self] gameID in
+                    // click Handler
+                    let detailsViewController = DetailsViewController()
+                    detailsViewController.gamesId = String(gameID)
+                    self?.navigationController?.pushViewController(detailsViewController, animated: true)
+                }
+                cellNode.append(CellNode(id: game.id, gameCell))
+            }
+            let updateCell = CellNode(id: "loading", LoadingCell())
+                     cellNode.append(updateCell)
+        }
+
+
+
+
 
         let helloSection = Section(id: "defaultSection", cells: cellNode)
         sections.append(helloSection)
@@ -87,30 +122,70 @@ class GamesViewController: UIViewController, GameListViewModelDelegate {
         isToggled.toggle()
         }
 
-    // Delegate Function
+    /// Delegate Function
     func gamesFetched() {
         render()
         }
 
-    // Veriyi alma fonksiyonu
+    /// sayfanın sonuna kadar kaydırıldıgında ikinci sayfanın istegini baslat
       @objc func veriAlindi(notification: Notification) {
-        if let veri = notification.userInfo?["veri"] as? Bool {
-          // Veriyi kullan
-          // Örneğin, başka bir view controller'ı açmak ve veriyi göndermek:
-            print("notification \(veri)")
-            viewModel.fetchGames()
+
+          if let veri = notification.userInfo?["veri"] as? Bool {
+              if viewModel.isSearchRequest {
+                  viewModel.fetchSearchResult(searchText: mySearchText)
+              } else {
+                  viewModel.fetchGames()
+              }
         }
       }
 }
 
 extension GamesViewController: UISearchBarDelegate {
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 
-        if searchText.count > 3 {
-            // SearchRequest
-            viewModel.fetchSearchResult(searchText: searchText)
-        } else {
-            // gamesViewController.fetchGames()
+        viewModel.pageSearch = 0
+        viewModel.gamesSearch.removeAll()
+
+        if !isTypingAllowed {
+            searchBar.text = searchText
+
+             // SearchRequest
+             if( searchText.count > 2 ){
+
+             if let searchText = searchBar.text?.replacingOccurrences(of: " ", with: "%20"){
+             mySearchText = searchText
+             isEmptySearch = false
+             viewModel.fetchSearchResult(searchText: searchText)
+             }
+
+             } else {
+             isEmptySearch = true
+             render()
+
+             }
         }
+        }
+    /// kullanıcı yazı yazarken 0.5 sn aralıkla bekleterek spamlamasını engellemek için
+    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+         if !isTypingAllowed {
+             return false
+         }
+
+         isTypingAllowed = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+             self.isTypingAllowed = true
+         }
+         return true
+     }
+
+    /// searchbar cancel butonu
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+
+        viewModel.gamesDefault.removeAll()
+        viewModel.page = 0
+        isEmptySearch = false
+        viewModel.fetchGames()
     }
-}
+    }
+

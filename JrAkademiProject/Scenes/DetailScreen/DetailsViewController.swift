@@ -87,7 +87,6 @@ class DetailsViewController: UIViewController, DetailsViewModelDelegate {
     @objc private func favoriteButtonTapped() {
 
         /// Data
-        var combinedGenres: String = ""
         guard let id = viewModel.gameDetails?.id else { return }
         guard let name = viewModel.gameDetails?.name else { return }
         guard let metacritic = viewModel.gameDetails?.metacritic else { return }
@@ -113,7 +112,6 @@ class DetailsViewController: UIViewController, DetailsViewModelDelegate {
 
         if let genres = viewModel.gameDetails?.genres {
             let genreNames = genres.compactMap { $0.name }
-            combinedGenres = genreNames.joined(separator: ", ")
 
             let genreString = genres.map { $0.name ?? "" }.joined(separator: ", ") as NSString
             favorite.setValue(genreString, forKey: "genre")
