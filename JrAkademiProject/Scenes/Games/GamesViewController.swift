@@ -103,12 +103,13 @@ class GamesViewController: UIViewController, GameListViewModelDelegate {
                 }
                 cellNode.append(CellNode(id: game.id, gameCell))
             }
+            let updateCell = CellNode(id: "loading", LoadingCell())
+                     cellNode.append(updateCell)
         }
 
 
 
-        let updateCell = CellNode(id: "loading", LoadingCell())
-                 cellNode.append(updateCell)
+
 
         let helloSection = Section(id: "defaultSection", cells: cellNode)
         sections.append(helloSection)

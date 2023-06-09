@@ -21,8 +21,6 @@ class CustomTableViewAdapter: UITableViewAdapter {
         print("Son hücre", isLast, lastRowIndex, indexPath.row)
       NotificationCenter.default.post(name: NSNotification.Name("İslemTamamlandi"), object: nil, userInfo: ["veri": isLast])
 
-      let loadingCell = LoadingCell()
-      loadingCell.startLoading()
     }
   }
 }

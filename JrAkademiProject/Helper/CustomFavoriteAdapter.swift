@@ -39,7 +39,7 @@ class CustomFavoritesAdapter: UITableViewAdapter{
             }
             // Delete the row from the table view
             favoritiesVC?.favoritesViewModel.fetchLocalGames()
-            // tableView.reloadData() // Update the table view after deletion
+            tableView.reloadData() // Update the table view after deletion
         }
     }
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
