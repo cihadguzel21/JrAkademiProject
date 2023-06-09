@@ -14,6 +14,7 @@ class GameCell: UITableViewCell {
 
     var tapGestureHandler: ((Int) -> Void)?
     var gameID: Int?
+    var backgroundColor2: UIColor = .red
 
     let gameImageView: UIImageView = {
         let imageView = UIImageView()
@@ -60,6 +61,7 @@ class GameCell: UITableViewCell {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         addGestureRecognizer(tapGesture)
         isUserInteractionEnabled = true
+        backgroundColor = backgroundColor2
     }
 
     // MARK: - SetUp Constraints
@@ -101,6 +103,7 @@ class GameCell: UITableViewCell {
 
 struct GameCellStruct: Component {
     let game: Game
+    let color : UIColor
     var tapGestureHandler: ((Int) -> Void)?
 
     func renderContent() -> GameCell {
@@ -127,6 +130,8 @@ struct GameCellStruct: Component {
           content.gameImageView.kf.setImage(with: url ,options: [.processor(myProcessor)])
       }
       content.gameID = game.id
+      content.backgroundColor = color
+      content.backgroundColor2 = color
       content.tapGestureHandler = tapGestureHandler
   }
 

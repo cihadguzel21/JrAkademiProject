@@ -13,16 +13,14 @@ class FavoritesViewModel {
 
     var gamesFavorites: [Game] = []
     var gameFav: Game?
-    
     weak var delegate: FavoritesViewModelDelegate?
 
     // MARK: fetch Local Games
-    func fetchLocalGames() -> Bool {
-
+    func fetchLocalGames() {
 
             gamesFavorites.removeAll()
           guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return false
+            return
           }
           let managedObjectContext: NSManagedObjectContext = appDelegate.persistentContainer.viewContext
           let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoritesDB")
@@ -34,13 +32,12 @@ class FavoritesViewModel {
             let results = try managedObjectContext.fetch(fetchRequest) as! [NSDictionary]
             for result in results {
 
-
                 let id = result["id"] as? Int ?? 0
                  let metacritic = result["metacritic"] as? Int
                  let name = result["name"] as? String
                  let image = result["imageUrl"] as? String
 
-                guard let genresString = result["genre"] as? String else { return false }
+                guard let genresString = result["genre"] as? String else { return }
 
                 let genresArray = genresString.components(separatedBy: ", ")
                 let genreObjects = genresArray.compactMap {
@@ -61,7 +58,7 @@ class FavoritesViewModel {
           } catch let error as NSError {
             print("Could not fetch data: \(error), \(error.userInfo)")
           }
-          return false
+          return
     }
 }
 
