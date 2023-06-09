@@ -7,6 +7,7 @@
 import UIKit
 import SnapKit
 import Carbon
+import CoreData
 
 class GamesViewController: UIViewController, GameListViewModelDelegate {
 
@@ -45,12 +46,16 @@ class GamesViewController: UIViewController, GameListViewModelDelegate {
         viewModel.fetchGames()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        render()
+      }
+
     private func setupTableView() {
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 120
+        tableView.estimatedRowHeight = 136
         tableView.separatorStyle = .none
-        tableView.contentInset = UIEdgeInsets(top: -30, left: 0, bottom: 0, right: 0)
-
+        tableView.contentInset = UIEdgeInsets(top: -10, left: 0, bottom: 0, right: 0)
 
         view.addSubview(tableView)
         tableView.snp.makeConstraints {
@@ -71,16 +76,26 @@ class GamesViewController: UIViewController, GameListViewModelDelegate {
             return
         }
 
+        viewModel.fetchAllIDs()
         /// search Request ise
         if viewModel.isSearchRequest {
 
             viewModel.gamesSearch.forEach { game in
 
-                var gameCell = GameCellStruct(game: game)
-                print(game.name)
+
+                var gameCell: GameCellStruct
+                /// Gamecell arkaplan rengini clicked durumuna göre değiştir
+
+                if(viewModel.checkId(game.id)) {
+                    gameCell = GameCellStruct(game: game, color: UIColor(named: "cellBackground") ?? .clear)
+
+                } else {
+                    gameCell = GameCellStruct(game: game, color: UIColor.white)
+                }
 
                 gameCell.tapGestureHandler = { [weak self] gameID in
                     /// click Handler
+                    self?.viewModel.saveClicked(id: gameID)
                     let detailsViewController = DetailsViewController()
                     detailsViewController.gamesId = String(gameID)
                     self?.navigationController?.pushViewController(detailsViewController, animated: true)
@@ -88,15 +103,25 @@ class GamesViewController: UIViewController, GameListViewModelDelegate {
                 cellNode.append(CellNode(id: game.id, gameCell))
             }
 
-        } else { /// Default Request ise
+        } else {
+            /// Default Request ise
             print(viewModel.gamesDefault.count,"games search ***********************")
             viewModel.gamesDefault.forEach { game in
 
-                var gameCell = GameCellStruct(game: game)
+                var gameCell: GameCellStruct
+                /// Gamecell arkaplan rengini clicked durumuna göre değiştir
+                if(viewModel.checkId(game.id)) {
+                    gameCell = GameCellStruct(game: game, color: UIColor(named: "cellBackground") ?? .clear)
+                }
+                else {
+                    gameCell = GameCellStruct(game: game, color: UIColor.white)
+                }
+
                 print(game.name)
 
                 gameCell.tapGestureHandler = { [weak self] gameID in
                     // click Handler
+                    self?.viewModel.saveClicked(id: gameID)
                     let detailsViewController = DetailsViewController()
                     detailsViewController.gamesId = String(gameID)
                     self?.navigationController?.pushViewController(detailsViewController, animated: true)
@@ -104,12 +129,8 @@ class GamesViewController: UIViewController, GameListViewModelDelegate {
                 cellNode.append(CellNode(id: game.id, gameCell))
             }
             let updateCell = CellNode(id: "loading", LoadingCell())
-                     cellNode.append(updateCell)
+            cellNode.append(updateCell)
         }
-
-
-
-
 
         let helloSection = Section(id: "defaultSection", cells: cellNode)
         sections.append(helloSection)
@@ -138,7 +159,10 @@ class GamesViewController: UIViewController, GameListViewModelDelegate {
               }
         }
       }
+
 }
+
+
 
 extension GamesViewController: UISearchBarDelegate {
 
@@ -157,16 +181,16 @@ extension GamesViewController: UISearchBarDelegate {
              mySearchText = searchText
              isEmptySearch = false
              viewModel.fetchSearchResult(searchText: searchText)
+                 self.tableView.reloadData()
              }
 
              } else {
              isEmptySearch = true
              render()
-
              }
         }
         }
-    /// kullanıcı yazı yazarken 0.5 sn aralıkla bekleterek spamlamasını engellemek için
+    /// kullanıcı yazı yazarken 0.3 sn aralıkla bekleterek spamlamasını engellemek için
     func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
          if !isTypingAllowed {
              return false
@@ -176,8 +200,8 @@ extension GamesViewController: UISearchBarDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
              self.isTypingAllowed = true
          }
-         return true
-     }
+        return true
+    }
 
     /// searchbar cancel butonu
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -186,6 +210,7 @@ extension GamesViewController: UISearchBarDelegate {
         viewModel.page = 0
         isEmptySearch = false
         viewModel.fetchGames()
+        self.tableView.reloadData()
     }
     }
 

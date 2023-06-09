@@ -12,7 +12,7 @@ class FavoritesViewController: UIViewController, FavoritesViewModelDelegate {
 
     var fromSearch = false
     var favoritesViewModel: FavoritesViewModel = FavoritesViewModel()
-    private let tableView = UITableView()
+    let tableView = UITableView()
     private let cellIdentifier = "Cell"
 
     private let renderer = Renderer(
@@ -38,18 +38,26 @@ class FavoritesViewController: UIViewController, FavoritesViewModelDelegate {
         var sections: [Section] = []
         var cellNode: [CellNode] = []
 
+        /// empty cell goster
+        if favoritesViewModel.gamesFavorites.isEmpty {
+            cellNode.append(CellNode(id: "emptyFavCell", EmptyComponent(name: "There is no Favorites found.")))
+            let emptySection = Section(id: "defaultSection", cells: cellNode)
+            sections.append(emptySection)
+            renderer.render(sections)
+            return
+        }
+
         favoritesViewModel.gamesFavorites.forEach { game in
 
-            var gameCell = GameCellStruct(game: game)
+            var gameCell = GameCellStruct(game: game, color: UIColor.white)
 
             gameCell.tapGestureHandler = { [weak self] gameID in
-                // click Handler
+                /// click Handler
                 let detailsViewController = DetailsViewController()
                 detailsViewController.gamesId = String(gameID)
                 self?.navigationController?.pushViewController(detailsViewController, animated: true)
             }
             cellNode.append(CellNode(id: "defaultCell", gameCell))
-
         }
 
         let helloSection = Section(id: "defaultSection", cells: cellNode)
@@ -62,13 +70,14 @@ class FavoritesViewController: UIViewController, FavoritesViewModelDelegate {
     tableView.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
-    tableView.backgroundColor = UIColor(red: 0xF8/255, green: 0xF8/255, blue: 0xF8/255, alpha: 1.0)
+      tableView.backgroundColor = .white
   }
 
-    // Delegate Function
+    /// Delegate Function
     func gamesFetched() {
         render()
         }
+
 }
 
 extension FavoritesViewController: UINavigationControllerDelegate {

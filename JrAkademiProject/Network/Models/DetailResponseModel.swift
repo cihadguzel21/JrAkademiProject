@@ -12,18 +12,17 @@ struct DetailResponseModel: Decodable {
     let id: Int
     let name: String?
     let descriptionRaw: String?
-    let backgroundImageAdditional: String?
+    let backgroundImage: String?
     let website: String?
     let redditURL: String?
     let metacritic: Int?
     let genres: [Genre]
 
-
     enum CodingKeys: String, CodingKey {
         case id
         case name
         case descriptionRaw = "description_raw"
-        case backgroundImageAdditional = "background_image_additional"
+        case backgroundImage = "background_image"
         case website
         case redditURL = "reddit_url"
         case metacritic

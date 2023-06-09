@@ -52,9 +52,8 @@ class DetailsViewController: UIViewController, DetailsViewModelDelegate {
         var sections: [Section] = []
         var cellNode: [CellNode] = []
 
-        guard let imageUrl = viewModel.gameDetails?.backgroundImageAdditional else { return }
         cellNode.append(CellNode(id: "hello", ImageWithTitleComponent(
-            imageUrl: imageUrl, name: viewModel.gameDetails?.name ?? "")))
+            imageUrl: viewModel.gameDetails?.backgroundImage ??  "", name: viewModel.gameDetails?.name ?? "")))
         cellNode.append(CellNode(id: "hello", DescriptionComponent(
             description: viewModel.gameDetails?.descriptionRaw ?? "")))
         cellNode.append(CellNode(id: "urlReddit", OpenUrlComponent(
@@ -86,29 +85,22 @@ class DetailsViewController: UIViewController, DetailsViewModelDelegate {
 
     @objc private func favoriteButtonTapped() {
 
-        /// Data
-        guard let id = viewModel.gameDetails?.id else { return }
-        guard let name = viewModel.gameDetails?.name else { return }
-        guard let metacritic = viewModel.gameDetails?.metacritic else { return }
-
-        guard let imageUrl = viewModel.gameDetails?.backgroundImageAdditional else { return }
-
         /// context ve AppDelegate tanımla
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let context = appDelegate.persistentContainer.viewContext
         let favorite = NSEntityDescription.insertNewObject(forEntityName: "FavoritesDB", into: context)
 
         /// tablodan data oku, tabloda varsa tekrar kaydetme, kullanıcıya uyarı ver
-        if isGameAlreadyFavorited(key: "name", value: name) {
+        if isGameAlreadyFavorited(key: "name", value: viewModel.gameDetails?.name ?? "") {
             showAlert(message: "Oyun Favorilerde var!")
             return
         }
 
         /// Değerleri veritabanına kaydet
-        favorite.setValue(id, forKey: "id")
-        favorite.setValue(name, forKey: "name")
-        favorite.setValue(metacritic, forKey: "metacritic")
-        favorite.setValue(imageUrl, forKey: "imageUrl")
+        favorite.setValue(viewModel.gameDetails?.id ?? 0, forKey: "id")
+        favorite.setValue(viewModel.gameDetails?.name ?? "-", forKey: "name")
+        favorite.setValue(viewModel.gameDetails?.metacritic ?? 0, forKey: "metacritic")
+        favorite.setValue(viewModel.gameDetails?.backgroundImage ?? "-", forKey: "imageUrl")
 
         if let genres = viewModel.gameDetails?.genres {
             let genreNames = genres.compactMap { $0.name }
