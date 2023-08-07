@@ -1,11 +1,13 @@
 # Movie App
 
+This app is a challenge app that feature-rich and libraries.
+
 - Used Carbon and Snapkit to design UI
 - Applied Swiftlint to obtain clean code project
 - Detailed project structure as clean structure
 - Alamofire for Network Request
 - Save favorites in local database by using Core Data
-- There is Generic Network Layer and Reusable Cells
+- There is Generic Network Layer and Reusing UI and Cells
 - Dynamic Serchbar
   
 GAMES SCREEN
