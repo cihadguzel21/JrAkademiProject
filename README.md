@@ -9,6 +9,7 @@ This app is a challenge app that feature-rich and libraries.
 - Save favorites in local database by using Core Data
 - There is Generic Network Layer and Reusing UI and Cells
 - Dynamic Serchbar
+- Pagination when long content
   
 GAMES SCREEN
 
